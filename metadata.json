@@ -1,0 +1,5 @@
+{
+  "name": "Real-Time World Problem Solver",
+  "description": "An AI assistant that identifies, analyzes, and proposes actionable solutions to urgent world problems using Gemini.",
+  "requestFramePermissions": []
+}

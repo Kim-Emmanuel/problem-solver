@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time World Problem Solver</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <h1>Real-Time World Problem Solver</h1>
+        </header>
+        <main>
+            <div id="input-section">
+                <label for="problem-input">Describe a pressing world problem:</label>
+                <textarea id="problem-input" rows="5" placeholder="e.g., Global water scarcity, Misinformation spread..."></textarea>
+                <button id="solve-button" aria-label="Submit problem to AI for a solution">Solve Problem</button>
+            </div>
+            <div id="response-section">
+                <h2>Proposed Solution:</h2>
+                <div id="loading-indicator" style="display: none;">Loading...</div>
+                <div id="error-message" style="display: none; color: red;"></div>
+                <pre id="response-output" aria-live="polite"></pre>
+            </div>
+        </main>
+        <footer>
+            <p>Powered by Awakening</p>
+        </footer>
+    </div>
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>

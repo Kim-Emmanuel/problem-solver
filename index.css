@@ -1,0 +1,162 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for longer content */
+    min-height: 100vh;
+    padding-top: 20px; /* Add some padding at the top */
+    padding-bottom: 20px; /* Add some padding at the bottom */
+}
+
+#app-container {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#input-section label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.95em;
+}
+
+#problem-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+    resize: vertical;
+    min-height: 80px;
+}
+
+#problem-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#solve-button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease-in-out;
+    align-self: flex-start; /* Align button to the left */
+}
+
+#solve-button:hover {
+    background-color: #0056b3;
+}
+
+#solve-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#response-section {
+    margin-top: 15px;
+}
+
+#response-section h2 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#loading-indicator {
+    font-style: italic;
+    color: #555;
+    text-align: center;
+    padding: 10px 0;
+}
+
+#error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid #ef9a9a;
+}
+
+#response-output {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    white-space: pre-wrap; /* Preserves whitespace and wraps text */
+    word-wrap: break-word; /* Breaks long words to prevent overflow */
+    min-height: 100px;
+    max-height: 500px; /* Limit height and allow scrolling */
+    overflow-y: auto; /* Add scrollbar if content exceeds max-height */
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.9em;
+    color: #222; /* Slightly darker text for pre */
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.85em;
+    color: #777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #app-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    #solve-button {
+        width: 100%; /* Full width button on small screens */
+    }
+}
