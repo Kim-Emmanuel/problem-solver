@@ -70,6 +70,40 @@ main {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+#example-problems-section {
+    margin-top: 5px;
+}
+
+#example-problems-section p {
+    margin: 0 0 8px 0;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: bold;
+}
+
+#example-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.example-button {
+    padding: 6px 12px;
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.example-button:hover {
+    background-color: #dbe2e9;
+    color: #212529;
+}
+
+
 #solve-button {
     padding: 12px 20px;
     background-color: #007bff;
@@ -80,6 +114,7 @@ main {
     font-size: 1em;
     transition: background-color 0.2s ease-in-out;
     align-self: flex-start; /* Align button to the left */
+    margin-top: 10px; /* Add some space above the main button */
 }
 
 #solve-button:hover {

@@ -27,6 +27,17 @@ const solveButton = document.getElementById('solve-button') as HTMLButtonElement
 const responseOutput = document.getElementById('response-output') as HTMLPreElement | null;
 const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement | null;
 const errorMessageElement = document.getElementById('error-message') as HTMLDivElement | null;
+const exampleButtonsContainer = document.getElementById('example-buttons') as HTMLDivElement | null;
+
+
+const EXAMPLE_PROBLEMS = [
+    "Rising sea levels threatening coastal cities",
+    "The global challenge of plastic pollution in oceans",
+    "Addressing the youth mental health crisis",
+    "Ensuring equitable access to AI technology",
+    "Combating the spread of antibiotic-resistant bacteria",
+    "Sustainable food production for a growing population"
+];
 
 const SYSTEM_PROMPT = `# 🌍 Real-Time World Problem Solver System Prompt
 
@@ -304,6 +315,20 @@ Stay focused on **actionable outcomes** while maintaining respect for **human ag
 `;
 
 if (solveButton && problemInput && responseOutput && loadingIndicator && errorMessageElement && API_KEY) {
+
+    if (exampleButtonsContainer) {
+        EXAMPLE_PROBLEMS.forEach(problem => {
+            const button = document.createElement('button');
+            button.textContent = problem;
+            button.classList.add('example-button');
+            button.addEventListener('click', () => {
+                problemInput.value = problem;
+                problemInput.focus();
+            });
+            exampleButtonsContainer.appendChild(button);
+        });
+    }
+
     solveButton.addEventListener('click', async () => {
         const problemDescription = problemInput.value.trim();
         if (!problemDescription) {
@@ -321,7 +346,7 @@ if (solveButton && problemInput && responseOutput && loadingIndicator && errorMe
 
         try {
             const responseStream = await ai.models.generateContentStream({
-                model: 'gemini-2.5-flash-preview-04-17',
+                model: 'gemini-2.5-flash',
                 contents: problemDescription,
                 config: {
                     systemInstruction: SYSTEM_PROMPT,
