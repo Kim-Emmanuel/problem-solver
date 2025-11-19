@@ -1,75 +1,84 @@
-# Real-Time World Problem Solver
+# RTGPS | Real-Time Global Problem Solver
 
-An advanced AI assistant, powered by the Google Gemini API, designed to provide rapid analysis and actionable solutions for critical world problems.
+**RTGPS** is a client-side, generative AI application engineered to provide structured, strategic intelligence on complex global issues. Built on the **Google GenAI SDK**, it leverages the **Gemini 2.5 Flash** model to deliver low-latency, high-fidelity situation reports in a unified "classified briefing" interface.
 
 ---
 
-## 🚀 Overview
+## 🏗 Architecture & Design
 
-The **Real-Time World Problem Solver** is a web application that leverages the power of Google's Gemini model to tackle some of the most pressing global challenges. Users can describe a complex issue—from climate change and public health crises to economic instability and misinformation—and receive a structured, comprehensive, and actionable solution framework in real-time.
+This application is built as a **zero-build** TypeScript project using native ES Modules. It emphasizes performance, resilience, and typographic hierarchy.
 
-The application is guided by a sophisticated system prompt that transforms the AI into **RTGPS (Real-Time Global Problem Solver)**, an expert system specializing in systems thinking, multi-stakeholder analysis, and evidence-based strategies.
+### Core Stack
+*   **Runtime**: Browser-native ES Modules (via `importmap`).
+*   **Language**: TypeScript (Client-side compilation/execution).
+*   **AI Layer**: `@google/genai` (Gemini 2.5 Flash).
+*   **Rendering**: `marked` for markdown parsing with custom CSS sanitization.
+*   **Styling**: CSS Variables for theming, Grid/Flexbox for layout, and print-media inspired typography.
 
-## ✨ Key Features
+### Key Engineering Features
 
--   **Dynamic Problem Analysis**: Input any world problem and receive an instant, detailed analysis.
--   **Powered by Gemini**: Utilizes the cutting-edge capabilities of Google's `gemini-2.5-flash` model for fast and intelligent responses.
--   **Structured Solution Frameworks**: Responses are formatted into clear, actionable phases, including rapid assessment, solution design, and implementation support.
--   **Real-Time Streaming**: Watch the AI generate the solution live, providing immediate feedback.
--   **Example Prompts**: Get started quickly with a curated list of sample problems.
--   **Responsive & Accessible UI**: A clean, modern interface that works seamlessly across devices.
+#### 1. Resilient AI Client Initialization
+The application implements **lazy instantiation** for the `GoogleGenAI` client. Instead of initializing on module load (which can race against environment variable injection), the client is constructed within the execution context of the specific action. This ensures graceful error handling if `API_KEY` is missing or malformed, preventing the entire UI thread from crashing.
 
-## 🛠️ Technology Stack
+#### 2. Abortable Streaming Responses
+RTGPS utilizes the `generateContentStream` API for real-time feedback. To manage long-running requests, we implement the **AbortController** pattern.
+*   **Signal Propagation**: The `AbortSignal` is passed into the stream loop.
+*   **Cleanup**: Resources and UI states (`thinking` vs `idle`) are deterministically reset in `finally` blocks, ensuring no "zombie" loading states persist after a cancellation.
 
--   **Frontend**: HTML5, CSS3, TypeScript
--   **AI Engine**: Google Gemini API (`@google/genai`)
--   **Module Loading**: ES modules via `esm.sh`
+#### 3. Prompt Engineering (System Instructions)
+The model is governed by a strict `System Instruction` set that enforces:
+*   **Persona**: "RTGPS" (Strategic Intelligence Unit).
+*   **Format**: Strict Markdown hierarchy (H1 for titles, H2 for sections).
+*   **Tone**: Objective, evidence-based, and urgency-prioritized.
 
-## ⚙️ How It Works
+#### 4. "Strategic Report" UI System
+The Output interface is designed to mimic physical intelligence dossiers:
+*   **Visual Metaphor**: Paper elevation using multi-layered `box-shadow`.
+*   **Typography**: `Merriweather` (Serif) for high-readability body text vs `System UI` (Sans) for technical metadata.
+*   **State Visualization**: CSS animations (`pulse`, `spin`) indicate active stream status vs idle states.
 
-The application's intelligence is driven by a highly detailed **System Prompt** that defines the AI's persona, operating principles, and response structure. When a user submits a problem:
+---
 
-1.  The query is sent to the Gemini API along with the comprehensive system prompt.
-2.  The AI, acting as **RTGPS**, processes the problem through its defined ethical and analytical frameworks.
-3.  It generates a response according to predefined templates for either urgent crises or long-term strategic issues.
-4.  The solution is streamed back to the user's browser, ensuring a dynamic and engaging experience.
-
-## 🔧 Getting Started
-
-To run this project locally, you need a web server to serve the static files.
+## 🚀 Setup & Execution
 
 ### Prerequisites
+*   A valid **Google Gemini API Key**.
+*   A local development server (to serve ES modules without CORS issues).
 
--   A modern web browser.
--   A Google Gemini API key.
+### Environment Configuration
+The application expects the API key to be injected into the process environment.
 
-### Setup
-
-1.  **Clone the repository:**
+1.  **Clone the repository**
     ```bash
     git clone <repository-url>
-    cd <repository-directory>
     ```
 
-2.  **API Key Configuration:**
-    This application requires the Google Gemini API key to be available as an environment variable named `API_KEY`. You must configure this in your deployment environment. The application will automatically pick it up via `process.env.API_KEY`.
-
-3.  **Run the application:**
-    Serve the `index.html` file using a local web server. A simple way to do this is with the `live-server` NPM package or Python's built-in server.
-
-    *Using `live-server`:*
+2.  **Serve the Application**
+    Because this uses native ES modules, you simply need to serve the root directory.
+    
+    **Using Python:**
     ```bash
-    npm install -g live-server
-    live-server
+    python3 -m http.server 8000
+    ```
+    
+    **Using Node (http-server):**
+    ```bash
+    npx http-server .
     ```
 
-    *Using Python:*
-    ```bash
-    # Python 3
-    python -m http.server
-    ```
-    Now, open your browser and navigate to the provided local address (e.g., `http://127.0.0.1:8080`).
+3.  **Access**
+    Navigate to `http://localhost:8000`. The application will check for `process.env.API_KEY`. Ensure your environment or your hosting provider injects this variable.
+
+---
+
+## 📦 Capabilities
+
+| Feature | Implementation |
+| :--- | :--- |
+| **Streaming Analysis** | `ai.models.generateContentStream` with token-by-token rendering. |
+| **Markdown Parsing** | Real-time parsing via `marked` library. |
+| **Context Management** | Single-turn request model optimized for high-throughput problem solving. |
+| **Responsive Layout** | CSS Grid `350px 1fr` split shrinking to single column on mobile. |
 
 ## 📄 License
-
-This project is licensed under the Apache License 2.0.
+Apache 2.0

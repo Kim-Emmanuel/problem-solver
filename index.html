@@ -3,41 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time World Problem Solver</title>
+    <title>RTGPS | Real-Time Global Problem Solver</title>
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
       {
         "imports": {
-          "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+          "@google/genai": "https://esm.sh/@google/genai@^0.7.0",
+          "marked": "https://esm.sh/marked@15.0.0"
         }
       }
     </script>
 </head>
 <body>
-    <div id="app-container">
-        <header>
-            <h1>Real-Time World Problem Solver</h1>
-        </header>
-        <main>
-            <div id="input-section">
-                <label for="problem-input">Describe a pressing world problem:</label>
-                <textarea id="problem-input" rows="5" placeholder="e.g., Global water scarcity, Misinformation spread..."></textarea>
-                <div id="example-problems-section">
-                    <p>Or try an example:</p>
-                    <div id="example-buttons"></div>
+    <div class="app-shell">
+        <!-- Left Panel: Controls (Dark Theme) -->
+        <aside class="control-panel">
+            <header class="app-header">
+                <div class="logo-mark">🌍</div>
+                <div>
+                    <h1>RTGPS</h1>
+                    <p class="subtitle">Global Problem Solver</p>
                 </div>
-                <button id="solve-button" aria-label="Submit problem to AI for a solution">Solve Problem</button>
+            </header>
+
+            <div class="input-group">
+                <label for="problem-input" class="input-label">Mission Parameters</label>
+                <textarea id="problem-input" placeholder="Describe a critical global issue..."></textarea>
             </div>
-            <div id="response-section">
-                <h2>Proposed Solution:</h2>
-                <div id="loading-indicator" style="display: none;">Loading...</div>
-                <div id="error-message" style="display: none; color: red;"></div>
-                <pre id="response-output" aria-live="polite"></pre>
+
+            <div class="suggestions-group">
+                <span class="group-label">Calibration Scenarios</span>
+                <div id="example-buttons" class="chip-container"></div>
             </div>
+
+            <div class="action-area">
+                <div id="error-message" class="status-card error" style="display: none;"></div>
+                
+                <div class="button-group">
+                    <button id="solve-button" class="btn-primary">
+                        <span class="btn-text">Initialize Sequence</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <button id="stop-button" class="btn-secondary" style="display: none;">
+                        Stop Transmission
+                    </button>
+                </div>
+            </div>
+            
+            <footer class="panel-footer">
+                <p>System: Gemini 2.5 Flash</p>
+            </footer>
+        </aside>
+
+        <!-- Right Panel: Output -->
+        <main class="output-panel">
+            <article class="report-container">
+                <div class="report-header">
+                    <div class="status-wrapper">
+                        <div class="status-indicator" id="status-dot"></div>
+                        <span id="status-text">Ready for Input</span>
+                    </div>
+                    <div class="report-meta">RESTRICTED // ANALYTICAL OUTPUT</div>
+                </div>
+                
+                <!-- The actual content area -->
+                <div id="response-output" class="report-body markdown-body" aria-live="polite">
+                    <div class="empty-state">
+                        <div class="empty-icon">📡</div>
+                        <h3>Awaiting Mission Data</h3>
+                        <p>Enter parameters to initiate strategic intervention analysis.</p>
+                    </div>
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loading-indicator" class="loading-overlay" style="display: none;">
+                    <div class="loader-content">
+                        <div class="spinner"></div>
+                        <p>Accessing Global Knowledge Graph...</p>
+                    </div>
+                </div>
+            </article>
         </main>
-        <footer>
-            <p>Powered by Awakening</p>
-        </footer>
     </div>
     <script type="module" src="index.tsx"></script>
 </body>
