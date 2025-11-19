@@ -5,7 +5,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { marked } from 'marked';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const errorDiv = document.getElementById('error-message');
 const solveButton = document.getElementById('solve-button') as HTMLButtonElement | null;
